@@ -8,15 +8,20 @@ def start_ffmpeg():
 
 # source = "rtsp://10.3.141.1:8554/stream"
     source = "rtsp://rtspstream:e08e1f1629e05280f3441da63fe80eaf@zephyr.rtsp.stream/movie"
-    command = ["ffmpeg",
-               "-rtsp_transport", "tcp",
-               "-i", source,
-               "-c:v", "libx264",
-               "-hls_time", "10",
-               "-hls_list_size", "5",
-               "-hls_flags", "delete_segments",
-               "stream.m3u8"
-               ]
+    command = [
+    "ffmpeg",
+    "-rtsp_transport", "udp",
+    "-i", source,
+    "-c:v", "h264",
+    "-preset", "ultrafast",
+    "-b:v", "2000k",
+    "-g", "48",
+    "-hls_time", "1",
+    "-hls_list_size", "6",
+    "-start_number", "1",
+    "-hls_flags", "delete_segments",
+    "stream.m3u8"
+]
     subprocess.run(command)
 
 # Directory where the ffmpeg output files are
